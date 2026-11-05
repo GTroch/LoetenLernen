@@ -1,0 +1,549 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Löten lernen</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+/* Layout: ein Lernheft – schmale Lesespalte, Kapitel als Karten, Übungen direkt im Kapitel; Farben und Schriften aus dem Design-System Lernwerk */
+:root{
+  --paper:#f7f4ec; --surface:#ffffff; --line:#ddd6c6; --ink:#1d2433; --ink-muted:#5a6274;
+  --tafel:#1f5c4a; --tafel-soft:#e4eee9; --marker:#f2b33d; --marker-soft:#fbe8bf;
+  --tinte:#2f5fb3; --rotstift:#b3402a; --rot-soft:#f6e1dc; --on-tafel:#ffffff; --img-bg:#ffffff;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
+  --s2:8px; --s4:16px; --s6:24px; --s10:40px; --r-sm:6px; --r-md:12px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --paper:#161b25; --surface:#1f2633; --line:#343d4e; --ink:#eef0f4; --ink-muted:#a9b0bf;
+  --tafel:#5fb394; --tafel-soft:#1d3a31; --marker:#f2b33d; --marker-soft:#4a3a17;
+  --tinte:#8db1ff; --rotstift:#ff8a73; --rot-soft:#46241e; --on-tafel:#0e1a15; --img-bg:#f4f1ea; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --paper:#161b25; --surface:#1f2633; --line:#343d4e; --ink:#eef0f4; --ink-muted:#a9b0bf;
+  --tafel:#5fb394; --tafel-soft:#1d3a31; --marker:#f2b33d; --marker-soft:#4a3a17;
+  --tinte:#8db1ff; --rotstift:#ff8a73; --rot-soft:#46241e; --on-tafel:#0e1a15; --img-bg:#f4f1ea; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:26px;margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;color:var(--ink)}
+h1{font-size:clamp(34px,6vw,52px);line-height:1.05;font-weight:800}
+h2{font-size:32px;line-height:38px;font-weight:700}
+h3{font-size:22px;line-height:28px;font-weight:600}
+p{margin:0;max-width:68ch}
+a{color:var(--tinte)}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--tinte);outline-offset:2px}
+.wrap{max-width:980px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* Kopfleiste */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:var(--s4);padding-block:10px}
+.brand{font-family:var(--display);font-weight:800;font-size:20px;white-space:nowrap}
+.progress{flex:1;display:flex;align-items:center;gap:var(--s2);min-width:0}
+.bar{flex:1;height:10px;border-radius:999px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--tafel);border-radius:999px;transition:width .4s}
+.progress small{font-size:14px;color:var(--ink-muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+.toc{display:flex;gap:var(--s2);overflow-x:auto;padding-block:0 10px;scrollbar-width:thin}
+.toc a{flex:none;font-size:14px;line-height:20px;text-decoration:none;color:var(--ink-muted);border:1px solid var(--line);border-radius:999px;padding:6px 12px;background:var(--paper)}
+.toc a.done{background:var(--tafel-soft);color:var(--ink);border-color:var(--tafel)}
+
+/* Einstieg */
+.hero{padding-block:var(--s10)}
+.hero-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:var(--s6);align-items:center}
+.hero-grid>*{min-width:0}
+.eyebrow{font-size:13px;line-height:16px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tafel)}
+.lead{font-size:20px;line-height:30px;margin-top:var(--s4)}
+.hero img{border-radius:var(--r-md);aspect-ratio:16/10;object-fit:cover;width:100%}
+.meta{font-size:14px;line-height:20px;color:var(--ink-muted);margin-top:var(--s4)}
+.mark{background:var(--marker);color:#1d2433;padding:0 4px;border-radius:3px}
+
+/* Kapitel */
+main{display:flex;flex-direction:column;gap:var(--s10);padding-bottom:64px}
+.chapter{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:var(--s6);display:flex;flex-direction:column;gap:var(--s6);scroll-margin-top:110px}
+.chap-head{display:flex;gap:var(--s4);align-items:baseline;flex-wrap:wrap}
+.chap-no{font-family:var(--display);font-weight:800;font-size:15px;color:var(--on-tafel);background:var(--tafel);border-radius:999px;padding:2px 12px}
+.figure{background:var(--img-bg);border:1px solid var(--line);border-radius:var(--r-md);padding:var(--s2);overflow:hidden}
+.figure img{margin:0 auto}
+figcaption,.cap{font-size:14px;line-height:20px;color:var(--ink-muted);margin-top:var(--s2)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:var(--s6);align-items:start}
+.two>*{min-width:0}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
+.card{border:1px solid var(--line);border-radius:var(--r-md);padding:var(--s4);display:flex;flex-direction:column;gap:var(--s2);background:var(--paper)}
+.card b.big{font-family:var(--display);font-size:26px;line-height:30px;color:var(--tafel)}
+.merke{background:var(--marker-soft);border-radius:var(--r-md);padding:var(--s4) var(--s6);display:flex;flex-direction:column;gap:var(--s2)}
+.merke .eyebrow{color:var(--ink)}
+.task{border:2px dashed var(--line);border-radius:var(--r-md);padding:var(--s6);display:flex;flex-direction:column;gap:var(--s4)}
+.task .eyebrow{color:var(--tinte)}
+ul.clean{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.done-row{display:flex;justify-content:flex-end}
+
+/* Bedienelemente */
+button{font:inherit;cursor:pointer;min-height:44px}
+.btn{background:var(--tafel);color:var(--on-tafel);border:0;border-radius:var(--r-md);padding:10px var(--s4);font-weight:700}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--ink-muted)}
+.btn.small{border-radius:var(--r-sm);min-height:44px;padding:6px 12px;font-size:15px}
+.btn:disabled{opacity:.5;cursor:default}
+.seg{display:flex;flex-wrap:wrap;gap:var(--s2)}
+.chip{border:1px solid var(--ink-muted);background:var(--surface);color:var(--ink);border-radius:999px;padding:8px 16px;font-size:15px}
+.chip[aria-pressed="true"],.chip[aria-selected="true"]{background:var(--tafel);color:var(--on-tafel);border-color:var(--tafel)}
+.panel{border-left:0;display:flex;flex-direction:column;gap:var(--s4)}
+.feedback{border-radius:var(--r-sm);padding:10px 14px;font-size:16px}
+.feedback.ok{background:var(--tafel-soft);color:var(--ink)}
+.feedback.no{background:var(--rot-soft);color:var(--ink)}
+.feedback strong.okt{color:var(--tafel)} .feedback strong.not{color:var(--rotstift)}
+.mark-done{display:inline-flex;align-items:center;gap:8px}
+.mark-done[aria-pressed="true"]{background:var(--tafel-soft);color:var(--ink);border:1px solid var(--tafel)}
+
+/* Schichten */
+.layers{display:flex;flex-direction:column;gap:6px}
+.layer{display:flex;align-items:center;gap:12px;text-align:left;border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:var(--r-sm);padding:8px 12px}
+.layer .n{font-family:var(--display);font-weight:800;width:28px;height:28px;border-radius:999px;display:grid;place-items:center;background:var(--line);color:var(--ink);flex:none}
+.layer[aria-pressed="true"]{border-color:var(--tafel);background:var(--tafel-soft)}
+.layer[aria-pressed="true"] .n{background:var(--tafel);color:var(--on-tafel)}
+
+/* Thermometer */
+.scale{position:relative;height:84px;margin-top:var(--s2)}
+.track{position:absolute;left:0;right:0;top:30px;height:16px;border-radius:999px;background:linear-gradient(90deg,#9cc4e8,#f2b33d 55%,#b3402a)}
+.window{position:absolute;top:24px;height:28px;border:2px solid var(--ink);border-radius:6px;background:transparent}
+.pin{position:absolute;top:0;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;transition:left .4s}
+.pin span{font-size:14px;font-weight:700;background:var(--ink);color:var(--paper);border-radius:6px;padding:0 6px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.pin i{width:2px;height:46px;background:var(--ink)}
+.ticks{display:flex;justify-content:space-between;font-size:13px;color:var(--ink-muted);font-variant-numeric:tabular-nums}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+th{font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-muted)}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+.tablebox{overflow-x:auto}
+
+/* Reihenfolge */
+.order{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.order li{display:flex;align-items:center;gap:12px;border:1px solid var(--line);background:var(--paper);border-radius:var(--r-sm);padding:6px 6px 6px 12px}
+.order li .t{flex:1;min-width:0}
+.order li.right{border-color:var(--tafel);background:var(--tafel-soft)}
+.order li.wrong{border-color:var(--rotstift);background:var(--rot-soft)}
+.order .mv{display:flex;gap:4px}
+.order .mv button{width:44px;border:1px solid var(--ink-muted);background:var(--surface);color:var(--ink);border-radius:var(--r-sm)}
+
+/* Stoppuhr */
+.watch{display:flex;align-items:center;gap:var(--s6);flex-wrap:wrap}
+.clock{font-family:var(--display);font-weight:800;font-size:64px;line-height:1;font-variant-numeric:tabular-nums;min-width:4.2ch}
+.zone{position:relative;height:14px;border-radius:999px;background:var(--line);overflow:hidden}
+.zone .good{position:absolute;left:20%;width:30%;top:0;bottom:0;background:var(--tafel)}
+.zone .hand{position:absolute;top:-2px;bottom:-2px;width:4px;background:var(--ink);left:0}
+.zone-l{display:flex;justify-content:space-between;font-size:13px;color:var(--ink-muted)}
+.tries{font-size:14px;color:var(--ink-muted)}
+
+/* Tools */
+.tools{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
+.tool{border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;display:flex;flex-direction:column;background:var(--paper)}
+.tool img{aspect-ratio:4/3;object-fit:cover;width:100%}
+.tool div{padding:var(--s4);display:flex;flex-direction:column;gap:6px}
+
+/* Quiz */
+.q{display:flex;flex-direction:column;gap:var(--s4)}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{text-align:left;border:1px solid var(--ink-muted);background:var(--surface);color:var(--ink);border-radius:var(--r-sm);padding:10px 14px}
+.opt.right{border-color:var(--tafel);background:var(--tafel-soft)}
+.opt.wrong{border-color:var(--rotstift);background:var(--rot-soft)}
+.qhead{display:flex;justify-content:space-between;gap:var(--s4);font-size:14px;color:var(--ink-muted);font-variant-numeric:tabular-nums}
+.dots{display:flex;gap:4px;flex-wrap:wrap}
+.dots i{width:12px;height:12px;border-radius:999px;background:var(--line)}
+.dots i.ok{background:var(--tafel)} .dots i.no{background:var(--rotstift)}
+.score{font-family:var(--display);font-size:56px;font-weight:800;line-height:1;color:var(--tafel)}
+
+.rules{counter-reset:r;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:var(--s4)}
+.rules li{counter-increment:r;display:flex;gap:12px;align-items:flex-start}
+.rules li::before{content:counter(r);font-family:var(--display);font-weight:800;font-size:22px;color:var(--tafel);min-width:22px}
+footer{color:var(--ink-muted);font-size:14px;padding-block:var(--s6) 48px}
+
+@media (max-width:760px){
+  .hero-grid,.two{grid-template-columns:1fr}
+  .cards,.tools{grid-template-columns:1fr}
+  .rules{grid-template-columns:1fr}
+  .chapter{padding:var(--s4)}
+  .clock{font-size:52px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+html{scroll-behavior:smooth}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <span class="brand">Löten lernen</span>
+    <div class="progress" aria-label="Dein Fortschritt">
+      <div class="bar"><i id="barFill"></i></div>
+      <small id="barText">0 von 9 Kapiteln</small>
+    </div>
+  </div>
+  <nav class="wrap toc" id="toc" aria-label="Kapitel"></nav>
+</header>
+
+<section class="wrap hero">
+  <div class="hero-grid">
+    <div>
+      <p class="eyebrow">Technik · Elektronik</p>
+      <h1>Wie aus Zinn eine sichere Verbindung wird</h1>
+      <p class="lead">Hier lernst du Schritt für Schritt, was beim Löten passiert, welches Werkzeug du brauchst und woran du eine <span class="mark">gute Lötstelle</span> erkennst. Jedes Kapitel endet mit einer kleinen Übung. Ganz unten wartet das Abschlussquiz.</p>
+      <p class="meta">Grundlage: Ersa Lötfibel „Löten leicht gemacht“ · Dauer etwa 30 Minuten</p>
+    </div>
+    <img src="img/cover.jpg" alt="Lötspitze an einem Chip auf einer grünen Leiterplatte, Lötrauch steigt auf">
+  </div>
+</section>
+
+<main class="wrap">
+
+<!-- 1 Grundlagen -->
+<section class="chapter" id="grundlagen" data-title="Grundlagen">
+  <div class="chap-head"><span class="chap-no">1</span><h2>Was ist Löten?</h2></div>
+  <p>Beim Löten verbindest du zwei Metallteile mit einem geschmolzenen Metall, dem <b>Lot</b>. Das Lot schmilzt immer bei einer niedrigeren Temperatur als die Teile, die du verbindest. Die Teile selbst bleiben fest.</p>
+  <div class="seg" role="tablist" aria-label="Verfahren vergleichen">
+    <button class="chip" role="tab" aria-selected="true" data-tab="weich" id="tab-weich">Weichlöten</button>
+    <button class="chip" role="tab" aria-selected="false" data-tab="hart" id="tab-hart">Hartlöten</button>
+    <button class="chip" role="tab" aria-selected="false" data-tab="schweiss" id="tab-schweiss">Schweißen</button>
+  </div>
+  <div class="card" id="procBox" aria-live="polite"></div>
+  <figure class="figure" style="margin:0">
+    <img src="img/loetschritte.jpg" alt="Drei Schritte: Teile und Lot werden erwärmt, flüssiges Lot füllt den Spalt, erstarrtes Lot fügt die Teile zusammen">
+  </figure>
+  <div class="cards">
+    <div class="card"><b class="big">1</b><p>Teile und Lot werden erwärmt.</p></div>
+    <div class="card"><b class="big">2</b><p>Das flüssige Lot fließt in den Spalt und füllt ihn.</p></div>
+    <div class="card"><b class="big">3</b><p>Das Lot erstarrt und hält die Teile zusammen.</p></div>
+  </div>
+  <div class="done-row"><button class="btn ghost small mark-done" data-done="grundlagen" aria-pressed="false" id="done-grundlagen">Kapitel verstanden</button></div>
+</section>
+
+<!-- 2 Im Inneren -->
+<section class="chapter" id="schichten" data-title="Im Inneren">
+  <div class="chap-head"><span class="chap-no">2</span><h2>Was im Metall passiert</h2></div>
+  <p>Das Lot klebt nicht einfach auf dem Metall. Das Zinn löst die Oberfläche ein wenig an. So entsteht eine <b>Mischkristallschicht</b>. Erst sie macht die Verbindung dauerhaft. Tippe auf eine Schicht.</p>
+  <div class="two">
+    <figure class="figure" style="margin:0"><img src="img/querschnitt.jpg" alt="Querschnitt einer Lötverbindung mit den Schichten 1 Grundmetall, 2 Mischkristallschicht, 3 erstarrtes Lot"></figure>
+    <div class="panel">
+      <div class="layers" id="layers">
+        <button class="layer" data-l="1" aria-pressed="false" id="layer-1"><span class="n">1</span>Grundmetall</button>
+        <button class="layer" data-l="2" aria-pressed="false" id="layer-2"><span class="n">2</span>Mischkristallschicht</button>
+        <button class="layer" data-l="3" aria-pressed="true" id="layer-3"><span class="n">3</span>Erstarrtes Lot</button>
+      </div>
+      <p id="layerText" aria-live="polite"></p>
+    </div>
+  </div>
+  <figure class="figure" style="margin:0">
+    <img src="img/flussmittelreaktion.jpg" alt="Schnittbild: Lötspitze über einer Leiterbahn, Flussmittel löst die Oxidschicht, flüssiges Lot fließt nach, dahinter erstarrtes Lot">
+    <figcaption>Die Spitze wandert nach links. Vorne löst das Flussmittel die Oxidschicht, dahinter benetzt das flüssige Lot die saubere Leiterbahn und erstarrt.</figcaption>
+  </figure>
+  <div class="merke"><span class="eyebrow">Merke</span><p>Ideal ist eine Mischkristallschicht von etwa <b>0,5 µm</b>. Ist sie zu dick, wird die Lötstelle brüchig. Ist sie zu dünn, hält sie nicht.</p></div>
+  <div class="done-row"><button class="btn ghost small mark-done" data-done="schichten" aria-pressed="false" id="done-schichten">Kapitel verstanden</button></div>
+</section>
+
+<!-- 3 Fünf Faktoren -->
+<section class="chapter" id="faktoren" data-title="5 Faktoren">
+  <div class="chap-head"><span class="chap-no">3</span><h2>Fünf Faktoren für gutes Löten</h2></div>
+  <p>Ob eine Lötstelle gelingt, hängt von fünf Dingen ab. Schau dir jeden Faktor an.</p>
+  <div class="seg" role="tablist" aria-label="Faktoren" id="factorTabs"></div>
+  <div class="two" id="factorBox" aria-live="polite"></div>
+  <div class="done-row"><button class="btn ghost small mark-done" data-done="faktoren" aria-pressed="false" id="done-faktoren">Kapitel verstanden</button></div>
+</section>
+
+<!-- 4 Lot und Temperatur -->
+<section class="chapter" id="temperatur" data-title="Lot & Temperatur">
+  <div class="chap-head"><span class="chap-no">4</span><h2>Welches Lot schmilzt wann?</h2></div>
+  <p>Seit dem 1. Juli 2006 ist Blei in den meisten Elektrogeräten verboten (RoHS). Bleifreies Lot besteht aus Zinn mit etwas Silber oder Kupfer und schmilzt heißer. Wähle ein Lot und vergleiche es mit der üblichen Spitzentemperatur in der Feinelektronik.</p>
+  <div class="seg" id="alloys" aria-label="Lot auswählen"></div>
+  <div>
+    <div class="scale" aria-hidden="true">
+      <div class="track"></div>
+      <div class="window" id="win"></div>
+      <div class="pin" id="pin"><span id="pinLabel">183 °C</span><i></i></div>
+    </div>
+    <div class="ticks"><span>150 °C</span><span>200</span><span>250</span><span>300</span><span>350</span><span>400</span><span>450 °C</span></div>
+  </div>
+  <p id="alloyText" aria-live="polite"></p>
+  <p class="cap">Schwarzer Rahmen: übliche Spitzentemperatur in der Feinelektronik, 250 bis 375 °C. Insgesamt braucht man je nach Lötstelle und Lot 200 bis 450 °C.</p>
+  <div class="tablebox">
+    <table>
+      <thead><tr><th>Legierung</th><th>Art</th><th style="text-align:right">Schmelzpunkt</th></tr></thead>
+      <tbody id="alloyTable"></tbody>
+    </table>
+  </div>
+  <div class="done-row"><button class="btn ghost small mark-done" data-done="temperatur" aria-pressed="false" id="done-temperatur">Kapitel verstanden</button></div>
+</section>
+
+<!-- 5 Lötvorgang -->
+<section class="chapter" id="ablauf" data-title="Lötvorgang">
+  <div class="chap-head"><span class="chap-no">5</span><h2>So lötest du eine Verbindung</h2></div>
+  <p>Jede Lötung hat drei Phasen: <b>Benetzen</b>, <b>Fließen</b>, <b>Binden</b>. Die beste Temperatur ist die niedrigste, bei der alle drei Phasen gut ablaufen.</p>
+  <div class="two">
+    <figure class="figure" style="margin:0"><img src="img/benetzung.jpg" alt="Links: Lötdraht benetzt die Lötspitze. Rechts: Lötdraht wird zwischen Spitze und Verbindung geführt"><figcaption>Erst die Spitze benetzen, dann den Lötdraht zwischen Spitze und Lötstelle führen.</figcaption></figure>
+    <figure class="figure" style="margin:0"><img src="img/spitzenwahl.jpg" alt="Zwei Lötspitzen auf einem Lötauge, die passende berührt Lötauge und Draht zugleich"><figcaption>Die passende Spitze berührt Lötauge und Anschluss gleichzeitig.</figcaption></figure>
+  </div>
+  <div class="task">
+    <span class="eyebrow">Übung · Reihenfolge</span>
+    <h3>Bring die Schritte in die richtige Reihenfolge</h3>
+    <ol class="order" id="order"></ol>
+    <div class="seg"><button class="btn" id="checkOrder">Reihenfolge prüfen</button><button class="btn ghost" id="shuffleOrder">Neu mischen</button></div>
+    <div id="orderFb" aria-live="polite"></div>
+  </div>
+  <div class="done-row"><button class="btn ghost small mark-done" data-done="ablauf" aria-pressed="false" id="done-ablauf">Kapitel verstanden</button></div>
+</section>
+
+<!-- 6 Lötdauer -->
+<section class="chapter" id="dauer" data-title="Lötdauer">
+  <div class="chap-head"><span class="chap-no">6</span><h2>Wie lange darf eine Lötung dauern?</h2></div>
+  <div class="two">
+    <div class="panel">
+      <p>Mit der richtigen Spitze ist eine Lötung nach <b>2 bis höchstens 5 Sekunden</b> fertig. Bleifreies Lot braucht etwas länger. Dauert es länger als 5 Sekunden, ist der Kolben zu kalt oder zu schwach.</p>
+      <p>Je heißer und je länger du lötest, desto dicker wird die Mischkristallschicht, und die Lötstelle wird spröde.</p>
+    </div>
+    <figure class="figure" style="margin:0;max-width:260px;justify-self:center"><img src="img/stoppuhr.jpg" alt="Stoppuhr"></figure>
+  </div>
+  <div class="task">
+    <span class="eyebrow">Übung · Gefühl für die Zeit</span>
+    <h3>Stoppe die Uhr zwischen 2 und 5 Sekunden</h3>
+    <p>Starte, zähle im Kopf mit und stoppe, wenn du glaubst, die Lötung wäre fertig. Die Anzeige läuft verdeckt.</p>
+    <div class="watch">
+      <div class="clock" id="clock">0,0 s</div>
+      <div class="seg"><button class="btn" id="watchBtn">Lötkolben ansetzen</button></div>
+    </div>
+    <div>
+      <div class="zone" aria-hidden="true"><div class="good"></div><div class="hand" id="hand"></div></div>
+      <div class="zone-l"><span>0 s</span><span>2 s</span><span>5 s</span><span>10 s</span></div>
+    </div>
+    <div id="watchFb" aria-live="polite"></div>
+    <p class="tries" id="tries"></p>
+  </div>
+  <div class="done-row"><button class="btn ghost small mark-done" data-done="dauer" aria-pressed="false" id="done-dauer">Kapitel verstanden</button></div>
+</section>
+
+<!-- 7 Qualität -->
+<section class="chapter" id="qualitaet" data-title="Gute Lötstelle">
+  <div class="chap-head"><span class="chap-no">7</span><h2>Gute Lötstelle oder schlechte?</h2></div>
+  <div class="cards">
+    <div class="card"><h3>Glatt und glänzend</h3><p>Ohne Poren. Bleifreies Lot mit Silber darf auch matt aussehen.</p></div>
+    <div class="card"><h3>Draht erkennbar</h3><p>Die Form des Anschlussdrahts ist noch zu sehen. Also nicht zu viel Lot.</p></div>
+    <div class="card"><h3>Flacher Winkel</h3><p>Bis 25° ist gut. Bis 50° ist beim Handlöten noch in Ordnung.</p></div>
+  </div>
+  <div class="task">
+    <span class="eyebrow">Übung · Lötstellen-Check</span>
+    <h3>Ist diese Lötstelle in Ordnung?</h3>
+    <div class="two">
+      <figure class="figure" style="margin:0"><img id="judgeImg" src="img/richtig.jpg" alt=""></figure>
+      <div class="panel">
+        <p id="judgeQ"></p>
+        <div class="seg"><button class="btn" id="judgeYes">Gute Lötstelle</button><button class="btn ghost" id="judgeNo">Fehlerhaft</button></div>
+        <div id="judgeFb" aria-live="polite"></div>
+        <button class="btn ghost small" id="judgeNext" hidden>Nächstes Bild</button>
+      </div>
+    </div>
+  </div>
+  <div class="merke"><span class="eyebrow">Merke</span><p>Nach der letzten Lötstelle legst du den Kolben in die Ablage, <b>ohne</b> die Spitze vorher zu reinigen. Das Restlot schützt die Spitze vor Oxid.</p></div>
+  <div class="done-row"><button class="btn ghost small mark-done" data-done="qualitaet" aria-pressed="false" id="done-qualitaet">Kapitel verstanden</button></div>
+</section>
+
+<!-- 8 Entlöten -->
+<section class="chapter" id="entloeten" data-title="Entlöten">
+  <div class="chap-head"><span class="chap-no">8</span><h2>Entlöten: Fehler reparieren</h2></div>
+  <p>Ist eine Lötstelle misslungen, entfernst du das alte Lot und lötest neu. Dafür gibt es drei Werkzeuge.</p>
+  <div class="tools">
+    <div class="tool"><img src="img/entloetlitze.jpg" alt="Entlötlitze wird mit dem Lötkolben auf eine Lötstelle gedrückt"><div><h3>Entlötlitze</h3><p>Ein Kupfergeflecht saugt das flüssige Lot auf wie ein Docht.</p></div></div>
+    <div class="tool"><img src="img/entloetpumpe_foto.jpg" alt="Lötkolben und mechanische Entlötpumpe an einer Leiterplatte"><div><h3>Entlötpumpe</h3><p>Lötstelle erwärmen, Spitze weg, Pumpe aufsetzen und Lot absaugen.</p></div></div>
+    <div class="tool"><img src="img/entloetkolben_foto.jpg" alt="Temperaturgeregelter Entlötkolben auf einem Bauteilanschluss"><div><h3>Entlötkolben</h3><p>Die hohle, beheizte Spitze schmilzt das Lot und saugt es gleich ab.</p></div></div>
+  </div>
+  <p class="cap">Tipp: Die Öffnung der Entlötspitze sollte so groß sein wie die Bohrung in der Platine, höchstens etwa 0,3 mm größer.</p>
+  <div class="done-row"><button class="btn ghost small mark-done" data-done="entloeten" aria-pressed="false" id="done-entloeten">Kapitel verstanden</button></div>
+</section>
+
+<!-- 9 SMD -->
+<section class="chapter" id="smd" data-title="SMD">
+  <div class="chap-head"><span class="chap-no">9</span><h2>SMD: immer kleiner, immer feiner</h2></div>
+  <div class="two">
+    <div class="panel">
+      <p><b>SMD</b> steht für <i>Surface Mount Device</i>. Die Bauteile werden direkt auf die Oberfläche der Platine gelötet, ganz ohne Bohrungen. Das ist heute der Standard in der Elektronik.</p>
+      <p>Für einzelne winzige Lötstellen gibt es Spitzen mit nur 0,2 mm Durchmesser. Chips mit vielen eng stehenden Beinchen (Fine-Pitch) lötet man mit einer Spitze mit Hohlkehle, die man über alle Beinchen zieht.</p>
+    </div>
+    <figure class="figure" style="margin:0"><img src="img/powerwell.jpg" alt="Lötspitze mit Hohlkehle wird über die Anschlüsse eines Chips gezogen"></figure>
+  </div>
+  <figure class="figure" style="margin:0"><img src="img/finepitch_schritte.jpg" alt="Sechs Schritte zum Löten eines Fine-Pitch-Chips"><figcaption>1–2 Spitze aufstecken, 285–360 °C einstellen · 3 Chip ausrichten, an zwei Ecken anlöten · 4 Flussmittel auftragen, Hohlkehle mit Lot füllen · 5–6 Spitze aufsetzen und locker über die Beinchen ziehen</figcaption></figure>
+  <figure class="figure" style="margin:0"><img src="img/meniskus.jpg" alt="Drei Lötstellen: sauber mit Meniskus, zu wenig Lot, zu viel Lot"><figcaption>Links richtig: genug Lot und ein schöner Meniskus. Mitte falsch: zu wenig Lot. Rechts falsch: zu viel Lot.</figcaption></figure>
+  <div class="done-row"><button class="btn ghost small mark-done" data-done="smd" aria-pressed="false" id="done-smd">Kapitel verstanden</button></div>
+</section>
+
+<!-- Quiz -->
+<section class="chapter" id="quiz" data-title="Abschlussquiz" data-noprogress="1">
+  <div class="chap-head"><span class="chap-no">Quiz</span><h2>Teste dein Wissen</h2></div>
+  <div id="quizBox" class="q"></div>
+</section>
+
+<!-- Merke -->
+<section class="chapter" id="regeln" data-title="Sechs Regeln" data-noprogress="1">
+  <div class="chap-head"><h2>Sechs Regeln für jede Lötstelle</h2></div>
+  <ol class="rules">
+    <li>Sauberkeit zuerst: Teile und Spitze ohne Schmutz und Oxid.</li>
+    <li>Erst die Lötstelle erwärmen, dann Lot zuführen.</li>
+    <li>So heiß wie nötig, so kurz wie möglich: 2 bis 5 Sekunden.</li>
+    <li>Erst den Lötdraht wegnehmen, dann die Spitze. Nicht wackeln.</li>
+    <li>Gute Lötstelle: glatt, flach auslaufend, Draht erkennbar.</li>
+    <li>Rauch absaugen, nichts essen, danach Hände waschen.</li>
+  </ol>
+</section>
+
+</main>
+<footer class="wrap">Inhalte und Abbildungen: Ersa Lötfibel „Löten leicht gemacht“ (Kurtz Ersa). Für den Unterricht zusammengefasst.</footer>
+
+<script>
+(function(){
+  var store={get:function(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},
+             set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+  function $(s,r){return (r||document).querySelector(s)}
+  function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))}
+  function fb(el,ok,text){el.innerHTML='<div class="feedback '+(ok?'ok':'no')+'"><strong class="'+(ok?'okt':'not')+'">'+(ok?'✓ Richtig. ':'✕ Noch nicht ganz. ')+'</strong>'+text+'</div>'}
+
+  /* Fortschritt */
+  var chapters=$$('.chapter');
+  var counted=chapters.filter(function(c){return !c.dataset.noprogress});
+  var done=store.get('loeten-done',{});
+  var toc=$('#toc');
+  chapters.forEach(function(c){var a=document.createElement('a');a.href='#'+c.id;a.textContent=c.dataset.title;a.dataset.for=c.id;toc.appendChild(a)});
+  function render(){
+    var n=counted.filter(function(c){return done[c.id]}).length;
+    $('#barFill').style.width=(n/counted.length*100)+'%';
+    $('#barText').textContent=n+' von '+counted.length+' Kapiteln';
+    $$('a',toc).forEach(function(a){a.classList.toggle('done',!!done[a.dataset.for])});
+    $$('.mark-done').forEach(function(b){var d=!!done[b.dataset.done];b.setAttribute('aria-pressed',d);b.textContent=d?'✓ Verstanden':'Kapitel verstanden'});
+  }
+  $$('.mark-done').forEach(function(b){b.addEventListener('click',function(){done[b.dataset.done]=!done[b.dataset.done];store.set('loeten-done',done);render()})});
+  render();
+
+  /* 1 Verfahren */
+  var proc={
+    weich:['Weichlöten','Das Lot schmilzt <b>unter 450 °C</b>. So lötest du in der Elektronik: Platinen, Kabel, Bauteile.'],
+    hart:['Hartlöten','Das Lot schmilzt <b>über 450 °C</b>. Die Verbindung wird sehr fest, zum Beispiel bei Rohren oder Werkzeugen.'],
+    schweiss:['Schweißen','Hier schmelzen die <b>Werkstücke selbst</b> und verbinden sich direkt miteinander. Das ist kein Löten mehr.']};
+  function showProc(k){$('#procBox').innerHTML='<h3>'+proc[k][0]+'</h3><p>'+proc[k][1]+'</p>';
+    $$('[data-tab]').forEach(function(b){b.setAttribute('aria-selected',b.dataset.tab===k)})}
+  $$('[data-tab]').forEach(function(b){b.addEventListener('click',function(){showProc(b.dataset.tab)})});
+  showProc('weich');
+
+  /* 2 Schichten */
+  var layerInfo={
+    '1':'<b>Grundmetall:</b> die beiden Teile, die du verbindest, zum Beispiel Kupfer von Leiterbahn und Bauteildraht. Sie schmelzen beim Löten nicht.',
+    '2':'<b>Mischkristallschicht:</b> Hier hat das Zinn das Metall angelöst. Es entstehen Verbindungen aus Kupfer und Zinn. Diese Schicht kommt zweimal vor, an jedem Grundmetall eine.',
+    '3':'<b>Erstarrtes Lot:</b> füllt den Spalt zwischen den Teilen und leitet den Strom.'};
+  function showLayer(l){$$('.layer').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.l===l)});$('#layerText').innerHTML=layerInfo[l]}
+  $$('.layer').forEach(function(b){b.addEventListener('click',function(){showLayer(b.dataset.l)})});
+  showLayer('3');
+
+  /* 3 Faktoren */
+  var factors=[
+    {t:'Lötkolben',img:'img/temperatur.jpg',alt:'Diagramm: geregelte Spitzentemperatur fällt bei jeder Lötstelle kurz ab und wird nachgeregelt',
+     p:'Der Lötkolben liefert die Wärme. Je nach Lötstelle und Lot brauchst du <b>200 bis 450 °C</b>, in der Feinelektronik meist <b>250 bis 375 °C</b>. Eine regelbare Lötstation misst die Temperatur an der Spitze und heizt sofort nach.',
+     m:'Eine geregelte Station verhindert überhitzte und kalte Lötstellen.'},
+    {t:'Lötspitze',img:'img/loetspitze_aufbau.jpg',alt:'Aufbau einer Dauerlötspitze: Kupferkern, Eisen-, Nickel- und Chromschicht, verzinnte Lötbahn',
+     p:'Die Spitze bringt die Wärme zur Lötstelle. Moderne Dauerlötspitzen haben einen Kupferkern mit einer Eisenschicht und einem Chromüberzug. Reinige sie heiß am feuchten Schwamm oder am Trockenschwamm und lass sie immer mit Lot benetzt.',
+     m:'Beschichtete Spitzen niemals feilen. Sonst ist die Schutzschicht kaputt.'},
+    {t:'Lot',img:'img/loetdraht.jpg',alt:'Lötdrähte mit einer und mehreren Flussmittelseelen im Querschnitt',
+     p:'Lot ist meist ein Draht aus einer Zinnlegierung. Früher enthielt es Blei. Heute ist es meist bleifrei: Zinn mit Silber und/oder Kupfer. Die Mischung bestimmt, bei welcher Temperatur es schmilzt.',
+     m:'Bleifreies Lot schmilzt heißer, etwa bei 217 bis 227 °C.'},
+    {t:'Flussmittel',img:'img/flussmittelreaktion.jpg',alt:'Schnittbild: Flussmittel löst die Oxidschicht auf der Leiterbahn',
+     p:'Auf jedem Metall liegt eine dünne Oxidschicht. Das Flussmittel löst sie und verhindert, dass beim Löten neues Oxid entsteht. Im Elektronik-Lötdraht steckt es schon drin, als <b>Flussmittelseele</b>.',
+     m:'Für Elektronik nur säurefreies Flussmittel verwenden.'},
+    {t:'Arbeitsplatz',img:'img/arbeitsplatz.jpg',alt:'Lötarbeitsplatz mit Lötrauchabsaugung und Lötstation',
+     p:'Dein Gesicht ist beim Löten nah an der Lötstelle. Flussmitteldämpfe können schädlich sein, deshalb saugt eine Absaugung den Lötrauch ab. Achte bei Geräten auf das VDE- und GS-Zeichen.',
+     m:'Am Lötplatz nicht essen, trinken oder rauchen. Danach gründlich Hände waschen.'}];
+  var ft=$('#factorTabs');
+  factors.forEach(function(f,i){var b=document.createElement('button');b.className='chip';b.setAttribute('role','tab');b.id='factor-'+i;b.textContent=(i+1)+' · '+f.t;b.addEventListener('click',function(){showFactor(i)});ft.appendChild(b)});
+  function showFactor(i){var f=factors[i];
+    $$('button',ft).forEach(function(b,j){b.setAttribute('aria-selected',j===i)});
+    $('#factorBox').innerHTML='<figure class="figure" style="margin:0"><img src="'+f.img+'" alt="'+f.alt+'"></figure><div class="panel"><h3>'+(i+1)+'. '+f.t+'</h3><p>'+f.p+'</p><div class="merke"><span class="eyebrow">Merke</span><p>'+f.m+'</p></div></div>'}
+  showFactor(0);
+
+  /* 4 Lot */
+  var alloys=[
+    {n:'Sn63Pb37',k:'bleihaltig',lo:183,hi:183,txt:'183 °C (eutektisch: schmilzt bei genau einer Temperatur)'},
+    {n:'Sn60Pb40',k:'bleihaltig',lo:183,hi:190,txt:'183 bis 190 °C'},
+    {n:'Sn95,5Ag3,8Cu0,7',k:'bleifrei',lo:217,hi:217,txt:'217 °C (eutektisch)'},
+    {n:'Sn96,5Ag3,5',k:'bleifrei',lo:221,hi:221,txt:'221 °C (eutektisch)'},
+    {n:'Sn99,3Cu0,7',k:'bleifrei',lo:227,hi:227,txt:'227 °C (eutektisch)'}];
+  var MIN=150,MAX=450;function pct(t){return (t-MIN)/(MAX-MIN)*100}
+  $('#win').style.left=pct(250)+'%';$('#win').style.width=(pct(375)-pct(250))+'%';
+  var al=$('#alloys'),tb=$('#alloyTable');
+  alloys.forEach(function(a,i){
+    var b=document.createElement('button');b.className='chip';b.id='alloy-'+i;b.textContent=a.n;b.addEventListener('click',function(){showAlloy(i)});al.appendChild(b);
+    var tr=document.createElement('tr');tr.innerHTML='<td>'+a.n+'</td><td>'+a.k+'</td><td class="num">'+(a.lo===a.hi?a.lo:a.lo+'–'+a.hi)+' °C</td>';tb.appendChild(tr)});
+  function showAlloy(i){var a=alloys[i];
+    $$('button',al).forEach(function(b,j){b.setAttribute('aria-pressed',j===i)});
+    $('#pin').style.left=pct(a.hi)+'%';$('#pinLabel').textContent=(a.lo===a.hi?a.lo:a.lo+'–'+a.hi)+' °C';
+    $('#alloyText').innerHTML='<b>'+a.n+'</b> ist '+a.k+' und schmilzt bei '+a.txt+'. Die Spitze ist also deutlich heißer als der Schmelzpunkt, damit die Wärme schnell in die Lötstelle fließt.'}
+  showAlloy(0);
+
+  /* 5 Reihenfolge */
+  var steps=['Lötstelle säubern und die heiße Spitze abwischen','Spitze an die Lötstelle halten und beide Teile erwärmen','Lötdraht zwischen Spitze und Lötstelle führen, bis alles benetzt ist','Zuerst den Lötdraht wegnehmen','Sofort danach die Lötspitze wegnehmen','Lot erstarren lassen, ohne zu wackeln'];
+  var cur=[];var ol=$('#order');
+  function shuffle(){cur=steps.map(function(s,i){return i});do{for(var i=cur.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=cur[i];cur[i]=cur[j];cur[j]=t}}while(cur.every(function(v,i){return v===i}));drawOrder();$('#orderFb').innerHTML=''}
+  function drawOrder(marks){ol.innerHTML='';cur.forEach(function(si,pos){
+    var li=document.createElement('li');if(marks)li.className=si===pos?'right':'wrong';
+    li.innerHTML='<span class="t">'+steps[si]+'</span><span class="mv"><button aria-label="Nach oben" '+(pos===0?'disabled':'')+'>↑</button><button aria-label="Nach unten" '+(pos===cur.length-1?'disabled':'')+'>↓</button></span>';
+    var bs=$$('button',li);bs[0].addEventListener('click',function(){swap(pos,pos-1)});bs[1].addEventListener('click',function(){swap(pos,pos+1)});ol.appendChild(li)})}
+  function swap(a,b){var t=cur[a];cur[a]=cur[b];cur[b]=t;drawOrder();$('#orderFb').innerHTML=''}
+  $('#checkOrder').addEventListener('click',function(){var right=cur.filter(function(v,i){return v===i}).length;drawOrder(true);
+    if(right===steps.length)fb($('#orderFb'),true,'Alle sechs Schritte stimmen. Denk vor allem an Schritt 4 und 5: erst der Draht, dann die Spitze.');
+    else fb($('#orderFb'),false,right+' von 6 Schritten stehen schon richtig. Die roten Zeilen gehören an eine andere Stelle.')});
+  $('#shuffleOrder').addEventListener('click',shuffle);
+  shuffle();
+
+  /* 6 Stoppuhr */
+  var running=false,t0=0,raf=0,tries=0,hits=0;
+  function fmt(s){return s.toFixed(1).replace('.',',')+' s'}
+  $('#watchBtn').addEventListener('click',function(){
+    if(!running){running=true;t0=performance.now();$('#clock').textContent='? ? ?';$('#hand').style.left='0';$('#watchFb').innerHTML='';this.textContent='Lötkolben wegnehmen'}
+    else{running=false;var s=(performance.now()-t0)/1000;tries++;this.textContent='Noch einmal ansetzen';
+      $('#clock').textContent=fmt(s);$('#hand').style.left='calc('+Math.min(s/10*100,100)+'% - 2px)';
+      if(s>=2&&s<=5){hits++;fb($('#watchFb'),true,fmt(s)+' liegt im richtigen Bereich. So entsteht eine gute Mischkristallschicht.')}
+      else if(s<2)fb($('#watchFb'),false,fmt(s)+' ist zu kurz. Die Lötstelle ist noch nicht richtig benetzt.');
+      else fb($('#watchFb'),false,fmt(s)+' ist zu lang. Mehr als 5 Sekunden machen die Lötstelle spröde.');
+      $('#tries').textContent=hits+' von '+tries+' Versuchen im Bereich 2 bis 5 Sekunden'}});
+
+  /* 7 Lötstellen-Check */
+  var judge=[
+    {img:'img/richtig.jpg',alt:'Lötstelle: Zinn läuft flach vom Draht zum Kupfer aus, Winkel 25 Grad',good:true,q:'Das Zinn läuft flach vom Anschlussdraht zum Kupfer aus.',why:'Kleiner Benetzungswinkel (hier 25°): Das Lot hat das Kupfer gut benetzt.'},
+    {img:'img/falsch.jpg',alt:'Lötstelle: Zinn sitzt als dicke Kugel auf dem Anschluss',good:false,q:'Das Zinn sitzt als dicke Kugel auf dem Anschluss.',why:'Das Lot hat das Kupfer nicht benetzt. Häufige Ursachen: Schmutz, zu wenig Wärme oder kein Flussmittel.'},
+    {img:'img/meniskus.jpg',alt:'Drei SMD-Lötstellen im Vergleich',good:false,q:'Schau auf die rechte Lötstelle: Das Lot wölbt sich als Buckel über das Bauteilbein.',why:'Rechts ist zu viel Lot. Richtig ist ein leicht nach innen gewölbter Meniskus wie links.'}];
+  var ji=0;
+  function showJudge(){var j=judge[ji];$('#judgeImg').src=j.img;$('#judgeImg').alt=j.alt;$('#judgeQ').textContent=j.q;$('#judgeFb').innerHTML='';$('#judgeNext').hidden=true;$('#judgeYes').disabled=false;$('#judgeNo').disabled=false}
+  function answer(g){var j=judge[ji];fb($('#judgeFb'),g===j.good,j.why);$('#judgeYes').disabled=true;$('#judgeNo').disabled=true;$('#judgeNext').hidden=false}
+  $('#judgeYes').addEventListener('click',function(){answer(true)});
+  $('#judgeNo').addEventListener('click',function(){answer(false)});
+  $('#judgeNext').addEventListener('click',function(){ji=(ji+1)%judge.length;showJudge()});
+  showJudge();
+
+  /* Quiz */
+  var Q=[
+    {q:'Ab welcher Temperatur spricht man von Hartlöten?',o:['über 183 °C','über 450 °C','über 1000 °C','über 250 °C'],a:1,e:'Unter 450 °C ist es Weichlöten, darüber Hartlöten.'},
+    {q:'Was unterscheidet Löten vom Schweißen?',o:['Beim Löten schmelzen die Werkstücke nicht','Beim Löten braucht man keinen Strom','Löten hält immer fester','Es gibt keinen Unterschied'],a:0,e:'Beim Schweißen schmelzen die Werkstücke selbst, beim Löten nur das Lot.'},
+    {q:'Welche Aufgabe hat das Flussmittel?',o:['Es kühlt die Lötstelle','Es färbt das Lot','Es entfernt Oxide und verhindert neues Oxid','Es macht das Lot härter'],a:2,e:'Das Flussmittel sorgt für eine metallisch reine Oberfläche.'},
+    {q:'Wie lange sollte eine Lötung höchstens dauern?',o:['1 Sekunde','5 Sekunden','15 Sekunden','30 Sekunden'],a:1,e:'2 bis höchstens 5 Sekunden. Länger deutet auf einen zu kalten oder zu schwachen Kolben hin.'},
+    {q:'Was nimmst du am Ende einer Lötung zuerst weg?',o:['Die Lötspitze','Den Lötdraht','Beides gleichzeitig','Die Platine'],a:1,e:'Erst den Lötdraht, sofort danach die Spitze.'},
+    {q:'Seit wann ist bleihaltiges Lot in den meisten Elektrogeräten verboten?',o:['1990','2000','2006','2020'],a:2,e:'Seit dem 1. Juli 2006 gilt die RoHS-Richtlinie.'},
+    {q:'Woran erkennst du eine gelungene Lötstelle?',o:['Das Lot bildet eine dicke Kugel','Die Oberfläche ist körnig','Kleiner Benetzungswinkel und glatte Oberfläche','Der Anschlussdraht ist ganz verdeckt'],a:2,e:'Glatt, flach auslaufend und der Draht ist noch zu erkennen.'},
+    {q:'Wie reinigst du eine beschichtete Dauerlötspitze?',o:['Mit einer Feile','Heiß am feuchten Schwamm oder Trockenschwamm','Kalt mit Schleifpapier','Gar nicht'],a:1,e:'Feilen zerstört die Schutzschicht.'},
+    {q:'Was machst du, bevor du den Lötkolben ablegst?',o:['Spitze gründlich reinigen','Spitze in Wasser tauchen','Nichts: Das Restlot schützt die Spitze','Spitze abfeilen'],a:2,e:'Das Restlot verhindert, dass die Lötbahn oxidiert.'},
+    {q:'Was bedeutet SMD?',o:['Bauteile werden auf die Oberfläche gelötet','Bauteile werden durch Bohrungen gesteckt','Ein besonders starker Lötkolben','Eine Lotsorte'],a:0,e:'Surface Mount Device: Bauteile sitzen direkt auf der Platinenoberfläche.'}];
+  var qi=0,qs=[],box=$('#quizBox');
+  function drawQ(){
+    if(qi>=Q.length){var ok=qs.filter(Boolean).length;
+      box.innerHTML='<div class="score">'+ok+' / '+Q.length+'</div><p>'+(ok>=9?'Sehr gut. Du kennst dich mit dem Löten richtig aus.':ok>=6?'Gut gemacht. Schau dir die Kapitel zu den Fragen, die noch nicht gesessen haben, noch einmal an.':'Noch nicht ganz. Lies die Kapitel noch einmal und versuche es dann erneut.')+'</p><div class="seg"><button class="btn" id="quizAgain">Quiz neu starten</button></div>';
+      $('#quizAgain').addEventListener('click',function(){qi=0;qs=[];drawQ()});return}
+    var q=Q[qi];
+    var dots=Q.map(function(_,i){return '<i class="'+(qs[i]===true?'ok':qs[i]===false?'no':'')+'"></i>'}).join('');
+    box.innerHTML='<div class="qhead"><span>Frage '+(qi+1)+' von '+Q.length+'</span><span class="dots">'+dots+'</span></div><h3>'+q.q+'</h3><div class="opts">'+q.o.map(function(o,i){return '<button class="opt" data-i="'+i+'" id="q'+qi+'o'+i+'">'+o+'</button>'}).join('')+'</div><div id="qfb" aria-live="polite"></div><div class="seg"><button class="btn" id="qnext" hidden>'+(qi===Q.length-1?'Ergebnis zeigen':'Nächste Frage')+'</button></div>';
+    $$('.opt',box).forEach(function(b){b.addEventListener('click',function(){
+      var i=+b.dataset.i,ok=i===q.a;qs[qi]=ok;
+      $$('.opt',box).forEach(function(x){x.disabled=true;if(+x.dataset.i===q.a)x.classList.add('right')});
+      if(!ok)b.classList.add('wrong');
+      fb($('#qfb'),ok,q.e);$('#qnext').hidden=false;$('#qnext').focus()})});
+    $('#qnext').addEventListener('click',function(){qi++;drawQ()});
+  }
+  drawQ();
+})();
+</script>
+
+</body></html>
